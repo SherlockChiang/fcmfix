@@ -124,17 +124,15 @@ public abstract class XposedModule {
 
     protected static void printLog(String text, Boolean isDiagnosticsLog) {
         Log.d(TAG, text);
+        XposedBridge.log("[fcmfix] [" + getSelfPackageName() + "]" + text);
         if (isDiagnosticsLog) {
             Intent log = new Intent("com.kooritea.fcmfix.log");
             log.putExtra("text", "[" + getSelfPackageName() + "]" + text);
 
             try {
                 context.sendBroadcast(log);
-            } catch (Throwable e) {
-                XposedBridge.log("[fcmfix] [" + getSelfPackageName() + "]" + text);
+            } catch (Throwable ignored) {
             }
-        } else {
-            XposedBridge.log("[fcmfix] [" + getSelfPackageName() + "]" + text);
         }
     }
 
