@@ -297,6 +297,9 @@ public abstract class XposedModule {
     }
 
     protected boolean isFCMIntent(Intent intent) {
+        if (intent == null) {
+            return false;
+        }
         String action = intent.getAction();
         return isFCMAction(action);
     }
